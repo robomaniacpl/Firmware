@@ -87,6 +87,21 @@ PARAM_DEFINE_INT32(CBRK_RATE_CTRL, 0);
 PARAM_DEFINE_INT32(CBRK_IO_SAFETY, 0);
 
 /**
+ * Circuit breaker for pre-armed state
+ *
+ * Setting this parameter to 642950 will lock all outputs to failsafe position when prearmed, until armed.
+ * Use together with CBRK_IO_SAFETY to prevent all actuator movement when the safety switch is disabled.
+ * WARNING: ENABLING THIS CIRCUIT BREAKER IS AT OWN RISK
+ *
+ * @reboot_required true
+ * @min 0
+ * @max 642950
+ * @category Developer
+ * @group Circuit Breaker
+ */
+PARAM_DEFINE_INT32(CBRK_PREARM_LCK, 0);
+
+/**
  * Circuit breaker for airspeed sensor
  *
  * Setting this parameter to 162128 will disable the check for an airspeed sensor.
