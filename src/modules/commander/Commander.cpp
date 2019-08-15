@@ -2324,6 +2324,16 @@ Commander::run()
 				armed.prearmed = (hrt_elapsed_time(&commander_boot_timestamp) > 5_s);
 			}
 
+			/* Lock all actuator output until armed if the circuit breaker is set */
+			if (status_flags.circuit_breaker_engaged_prearm_lock_check) {
+				if (armed.prearmed && !armed.armed) {
+					armed.lockdown = true;
+
+				} else {
+					armed.lockdown = false;
+				}
+			}
+
 			armed.timestamp = hrt_absolute_time();
 			_armed_pub.publish(armed);
 
@@ -2441,6 +2451,8 @@ get_circuit_breaker_params()
 	status_flags.circuit_breaker_flight_termination_disabled = circuit_breaker_enabled("CBRK_FLIGHTTERM",
 			CBRK_FLIGHTTERM_KEY);
 	status_flags.circuit_breaker_engaged_posfailure_check = circuit_breaker_enabled("CBRK_VELPOSERR", CBRK_VELPOSERR_KEY);
+	status_flags.circuit_breaker_engaged_prearm_lock_check = circuit_breaker_enabled("CBRK_PREARM_LCK",
+			CBRK_PREARM_LCK_KEY);
 }
 
 void
