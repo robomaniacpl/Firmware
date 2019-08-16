@@ -10,7 +10,7 @@ then
 fi
 
 # Possible external compasses
-hmc5883 -X start
+qmc5883 -X start
 
 bmp280 start
 
