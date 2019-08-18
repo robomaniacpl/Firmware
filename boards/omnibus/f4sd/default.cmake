@@ -8,6 +8,7 @@ px4_add_board(
 	ROMFSROOT px4fmu_common
 
 	SERIAL_PORTS
+		GPS1:/dev/ttyS0
 		TEL2:/dev/ttyS1
 		URT6:/dev/ttyS2
 
